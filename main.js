@@ -407,19 +407,3 @@ let RecMath = {
 	},
 	"number_systems":["roman_numeral","egyptian","mayan"]
 }
-//A better function I came up with
-function genPrimes2 (n) {
-	var p = []
-	var c = []
-	for (i=2;i<=n;i++){
-		if (c.indexOf(i) == -1){
-			p.push(i)
-			c.push(i+i)
-		}else{
-			while(c.indexOf(i) !== -1) {
-				c[c.indexOf(i)] += p[c.indexOf(i)]
-			}
-		}
-	}
-	return p;
-}
