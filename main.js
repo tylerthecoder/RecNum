@@ -1,4 +1,4 @@
-let RecMath = {
+	let RecMath = {
 	"handler":{
 		get: function(target, name) {
 			//console.log(name)

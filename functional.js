@@ -6,11 +6,13 @@ const rf = fn => (...args) => {
     return res
 }
 
+const log = (...what) => console.log(...what)
 
 /* Array Functions */
 const head = ([arr]) => arr
 const tail = (arr) => arr[arr.length-1]
 const rest = ([arr,...rest]) => rest  
+const isEmpty = arr => arr.length == 0
 const boolToIndex = rf (
     (arr,index = 0,newArray = []) => {
         if (arr.length < index) return newArray;
@@ -24,14 +26,23 @@ const sumArray = rf(
         return ["CALL",rest(arr),sum+head(arr)]
     }
 )
-
+const stringToInt = rf(
+    (arr,index = 0) => {
+        if (arr.length <= index) return arr
+        arr[index] = +arr[index]
+        return ["CALL",arr,index+1]
+    }
+)
 
 //number functions
 const isEven = x => x % 2 == 0
 const isInt = x => x == Math.floor(x)
 const reverseNum = x => x.toString().split('').reverse().join('')
-
-
+const str = x => x.toString()
+const isPandigital = x => x.toString().split("").sort().toString() == "0,1,2,3,4,5,6,7,8,9";
+const digits = x => str(x).split('')
+const getDigits = (x,start,length = digits(x).length) => digits(x).splice(start,length)
+const digitSum = x => sumArray(stringToInt(digits(x)))
 
 //prime functions
 const isPrime = rf(
@@ -42,7 +53,6 @@ const isPrime = rf(
 )
 
 const isEmirp = x => (!isPrime(x)) ? false:isPrime(reverseNum(x))
-
 const isWilsonPrime = x => (x == 5 || x == 13 || x == 563)
 
 const primesUpTo = rf (
@@ -60,11 +70,103 @@ const isSuperPrime = (x,thing) => {
 }
 
 const isTwinPrime = x => {
+    if (!isPrime(x)) return false
     if (isPrime(x+2)) return x+2
     if (isPrime(x-2)) return x-2
+    return false
 }
 
-console.log(isSuperPrime(991))
+
+//factor function
+const getFactors = rf(
+    (x, facts = [], count = 1) => {
+        if (Math.sqrt(x) < count) return facts
+        if (isInt(x/count)) facts.push(count,x/count)
+        return ["CALL",x,facts,count+1]
+    }
+)
+
+const factorSum = (x) => {
+    return sumArray(getFactors(x))
+}
+
+const getPrimeFacts = rf(
+    (x, facts = [], check = 2) => {
+        if (x == 1) return facts
+        if (isInt(x/check)) {
+            facts.push(check)
+            x /= check
+            return ["CALL",x,facts,check]
+        }
+        return ["CALL",x,facts,check+1]
+    }
+)
+
+const getPowers = rf (
+    (x,powers = [],b = 2) => {
+        if (b > Math.log2(x)) return powers
+        if (isInt(x**(1/b))) powers.push([x**(1/b),b])
+        return ["CALL",x,powers,b+1]
+    }
+)
+
+const isAbudant = x => factorSum(x) >  2*x;
+const isPerfect = x => factorSum(x) == 2*x;
+const isDeficent = x => factorSum(x) < 2*x;
+
+//having to due with digits
+const isKeith = rf(
+    (x,digs = digits(x)) => {
+        let sum = sumArray(stringToInt(digs))
+        if (sum == x) return true
+        if (sum > x) return false
+        digs.push(sum)
+        return ["CALL",x,rest(digs)]
+    }
+)
+
+const isNarcissistic = x => {
+    return x == sumArray(digits(x).map(n => Math.pow(n,digits(x).length)))
+}
+
+const isHappy = rf(
+    x => {
+        if (x == 1 || x == 145) return x == 1
+        x = sumArray(digits(x).map(x => x*x))
+        return ["CALL",x]
+    }
+)
+
+const isSmith = x => {
+    return digitSum(x) == sumArray(getPrimeFacts(x).map(x => digitSum(x)))
+}
+
+const isPowerful = x => {
+    return getPrimeFacts(x).every(p => isInt(x/(p*p)))
+}
+
+const isAchilles = x => {
+    return isPowerful(x) && (getPowers(x).length < 1)
+}
+
+const isAutomorphic = x => {
+    return digits(x*x).slice(digits(x).length).toString() == digits(x).toString()
+}
+
+const isPolyDivisible = rf(
+    (x,divisor = 1) => {
+        if (divisor > digits(x).length) return true
+        if (!isInt(getDigits(x,0,divisor).join("")/divisor)) return false
+        return ["CALL",x,divisor+1]
+    }
+)
+
+const isOre = (x) => {
+    let sum = getFactors(x).reduce((accum,curr) => accum + curr**-1)
+    return isInt(Math.floor((getFactors(x).length/sum)/100000)*100000) //flaoting poaint error, maybe fix with fraction addition
+}
+
+console.log(isOre(2970))
 
 
 
@@ -134,32 +236,6 @@ const aksPrimealityTest2 = x => {
 }
 
 
-
-
-const getFactors = rf(
-    (x, facts = [], count = 1) => {
-        if (Math.sqrt(x) < count) return facts
-        if (isInt(x/count)) facts.push(count,x/count)
-        return ["CALL",x,facts,count+1]
-    }
-)
-
-const factorSum = (x) => {
-    return sumArray(getFactors(x))
-}
-
-const getPrimeFacts = rf(
-    (x, facts = [], check = 2) => {
-        if (x == 1) return facts
-        if (isInt(x/check)) {
-            facts.push(check)
-            x /= check
-            return ["CALL",x,facts,check]
-        }
-        return ["CALL",x,facts,check+1]
-    }
-)
-
 const isInSeq = (seed,build) => rf((x,seq = seed) => {
 	if (seq[seq.length-1] > x) return false
 	if (index = seq.indexOf(x) > -1) return index
@@ -191,8 +267,13 @@ const isLucas = isInSeq([2,1],(seed) => {
 
 const funcs = {
     "even":isEven,
-    "isInt":isInt
+    "isInt":isInt,
+    "prime":isPrime,
+    "powerful":isPowerful
 }
+
+
+module.exports = funcs
 
 let handler = {
     get(target, propKey, receiver) {
