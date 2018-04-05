@@ -13,6 +13,15 @@ const head = ([arr]) => arr
 const tail = (arr) => arr[arr.length-1]
 const rest = ([arr,...rest]) => rest  
 const isEmpty = arr => arr.length == 0
+const sumArray = arr => arr.reduce((accum,cur) => accum+cur)
+const stringToInt = arr => arr.map(n => +n)
+const isDuplicate = rf(
+    (arr, index = 1) => {
+        if (index == arr.length) return false
+        if (arr[index] == arr[index-1]) return true
+        return ["CALL",arr,index+1]
+    }
+)
 const boolToIndex = rf (
     (arr,index = 0,newArray = []) => {
         if (arr.length < index) return newArray;
@@ -20,21 +29,9 @@ const boolToIndex = rf (
         return ["CALL",arr,index+1,newArray]
     }
 )
-const sumArray = rf(
-    (arr,sum = 0) => {
-        if (arr.length == 0) return sum
-        return ["CALL",rest(arr),sum+head(arr)]
-    }
-)
-const stringToInt = rf(
-    (arr,index = 0) => {
-        if (arr.length <= index) return arr
-        arr[index] = +arr[index]
-        return ["CALL",arr,index+1]
-    }
-)
 
-//number functions
+
+/* Number Functions */
 const isEven = x => x % 2 == 0
 const isInt = x => x == Math.floor(x)
 const reverseNum = x => x.toString().split('').reverse().join('')
@@ -125,10 +122,6 @@ const isKeith = rf(
     }
 )
 
-const isNarcissistic = x => {
-    return x == sumArray(digits(x).map(n => Math.pow(n,digits(x).length)))
-}
-
 const isHappy = rf(
     x => {
         if (x == 1 || x == 145) return x == 1
@@ -136,22 +129,6 @@ const isHappy = rf(
         return ["CALL",x]
     }
 )
-
-const isSmith = x => {
-    return digitSum(x) == sumArray(getPrimeFacts(x).map(x => digitSum(x)))
-}
-
-const isPowerful = x => {
-    return getPrimeFacts(x).every(p => isInt(x/(p*p)))
-}
-
-const isAchilles = x => {
-    return isPowerful(x) && (getPowers(x).length < 1)
-}
-
-const isAutomorphic = x => {
-    return digits(x*x).slice(digits(x).length).toString() == digits(x).toString()
-}
 
 const isPolyDivisible = rf(
     (x,divisor = 1) => {
@@ -161,13 +138,22 @@ const isPolyDivisible = rf(
     }
 )
 
-const isOre = (x) => {
+const isNarcissistic = x => x == sumArray(digits(x).map(n => Math.pow(n,digits(x).length)))
+const isSmith = x => digitSum(x) == sumArray(getPrimeFacts(x).map(x => digitSum(x)))
+const isPowerful = x => getPrimeFacts(x).every(p => isInt(x/(p*p)))
+const isAchilles = x => isPowerful(x) && (getPowers(x).length < 1)
+const isSphenic = x => getPrimeFacts(x).length == 3 && !isDuplicate(getPrimeFacts(x))
+const isAutomorphic = x => digits(x*x).slice(digits(x).length).toString() == str(digits(x))
+
+
+const isOre = x => {
     let sum = getFactors(x).reduce((accum,curr) => accum + curr**-1)
-    return isInt(Math.floor((getFactors(x).length/sum)/100000)*100000) //flaoting poaint error, maybe fix with fraction addition
+    return isInt(Math.floor((getFactors(x).length/sum)*100000)/100000) //flaoting poaint error, maybe fix with fraction addition
 }
 
-console.log(isOre(2970))
-
+const isKaprekar = x => {
+    digits(x**2)
+}
 
 
 const pascal = rf(
@@ -269,7 +255,9 @@ const funcs = {
     "even":isEven,
     "isInt":isInt,
     "prime":isPrime,
-    "powerful":isPowerful
+    "powerful":isPowerful,
+    "ore":isOre,
+    "sphenic":isSphenic
 }
 
 
