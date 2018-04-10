@@ -1,4 +1,3 @@
-(() => {
 const rf = fn => (...args) => {
     let res = fn(...args)
     while (res[0] == "CALL") {
@@ -24,6 +23,10 @@ const isDuplicate = rf(
     }
 )
 
+// const isDuplicate = arr => arr.reduce((accum,val,index,arr) => {
+
+// })
+
 const boolToIndex = arr => arr.reduce((accum,val,index) => {
     if (val) { accum.push(index) }
     return accum
@@ -47,6 +50,7 @@ const isPrime = rf(
         return (x % next == 0) ? false:(next > Math.sqrt(x)) ? true:["CALL",x,next+1] 
     }
 )
+
 
 const isEmirp = x => (!isPrime(x)) ? false:isPrime(reverseNum(x))
 const isWilsonPrime = x => (x == 5 || x == 13 || x == 563)
@@ -110,7 +114,7 @@ const isDeficent = x => factorSum(x) < 2*x;
 //having to due with digits
 const isKeith = rf(
     (x,digs = digits(x)) => {
-        let sum = sumArray(stringToInt(digs))
+        const sum = sumArray(stringToInt(digs))
         if (sum == x) return true
         if (sum > x) return false
         digs.push(sum)
@@ -146,7 +150,7 @@ const isMersenne = x => isInt(Math.log2(x+1))
 const isFermat = x => isInt(Math.log2(Math.log2(x-1)))
 
 const isOre = x => {
-    let sum = getFactors(x).reduce((accum,curr) => accum + curr**-1)
+    const sum = getFactors(x).reduce((accum,curr) => accum + curr**-1)
     return isInt(Math.floor((getFactors(x).length/sum)*100000)/100000) //flaoting poaint error, maybe fix with fraction addition
 }
 
@@ -157,6 +161,22 @@ const isKaprekar = rf(
         return ["CALL",x,index+1]
     }
 )
+
+
+const toRomanNumeral = x => {
+    if (x > 3999) return "Romans can't count this high";
+    const numerals = "IVXLCDM".split("")
+    return digits(x).slice(-4).reverse().map((n,index) => {
+        if (n == 0) return ""
+        const offset = (n > 5) ? 2:1;
+        let str = (n >= 5) ? numerals[index*2+1]:""
+        if (n%5 == 4) str = numerals[index*2] + numerals[index*2 + offset] //there is a subtraction ex IV IX
+        else str += numerals[index*2].repeat(n%5)
+        return str
+    }).reverse().join("")
+}
+
+log(toRomanNumeral(6235))
 
 
 const pascal = rf(
@@ -261,7 +281,6 @@ const inLookAndSay = isInSeq(lookAndSay,[1])
 const inLazyCaterers = isInSeq(lazyCaterers,[1])
 
 
-})
 
 // const funcs = {
 //     "even":isEven,
