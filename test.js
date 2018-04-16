@@ -4,7 +4,7 @@ var jasmine = new Jasmine();
 let funcs = require("./functional")
 
 
-describe("RecMAth", function() {
+describe("RecMath", function() {
     let isPrime = funcs.prime
     it("know which numbers are prime", function() {
         expect(isPrime(1)).toBe(false);

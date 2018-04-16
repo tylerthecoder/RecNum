@@ -8,52 +8,41 @@ const rf = fn => (...args) => {
 
 const log = (...what) => console.log(...what)
 
-/* Array Functions */
+/* O(n) functions */
 const head = ([arr]) => arr
 const tail = (arr,length = 1) => arr[arr.length-length]
 const rest = ([arr,...rest]) => rest  
 const isEmpty = arr => arr.length == 0
 const sumArray = arr => arr.reduce((accum,cur) => accum+cur,0)
 const stringToInt = arr => arr.map(toInt)
-const isDuplicate = rf(
-    (arr, index = 1) => {
-        if (index == arr.length) return false
-        if (arr[index] == arr[index-1]) return true
-        return ["CALL",arr,index+1]
-    }
-)
-
-// const isDuplicate = arr => arr.reduce((accum,val,index,arr) => {
-
-// })
-
+const isDuplicate = arr => arr.some((val,index,arr) => val == arr[index-1])
 const boolToIndex = arr => arr.reduce((accum,val,index) => {
     if (val) { accum.push(index) }
     return accum
 },[])
-
-/* Number Functions */
 const isEven = x => x % 2 == 0
 const isInt = x => x == Math.floor(x)
 const toInt = x => +x;
-const reverseNum = x => x.toString().split('').reverse().join('')
+const reverseNum = x => digits(x).reverse().join('')
 const str = x => x.toString()
-const isPandigital = x => x.toString().split("").sort().toString() == "0,1,2,3,4,5,6,7,8,9";
 const digits = x => str(x).split('')
 const getDigits = (x,start,length = digits(x).length) => digits(x).splice(start,length)
 const digitSum = x => sumArray(stringToInt(digits(x)))
 
 //prime functions
 const isPrime = rf(
-    (x,next = 2) => {
+    (x,divisor = 2) => {
         if (x == 1) return false
-        return (x % next == 0) ? false:(next > Math.sqrt(x)) ? true:["CALL",x,next+1] 
+        if (x % divisor == 0)return  false
+        if (divisor > Math.sqrt(x)) return true
+        return ["CALL",x,divisor+1] 
     }
 )
 
+const isPandigital = x => x.toString().split("").sort().toString() == "0,1,2,3,4,5,6,7,8,9";
 
 const isEmirp = x => (!isPrime(x)) ? false:isPrime(reverseNum(x))
-const isWilsonPrime = x => (x == 5 || x == 13 || x == 563)
+const isWilsonPrime = x => x == 5 || x == 13 || x == 563
 
 const primesUpTo = rf (
     (x, factor = 2, index = factor*2, p = Array(x+1).fill(true,2,x)) => {
@@ -122,6 +111,7 @@ const isKeith = rf(
     }
 )
 
+
 const isHappy = rf(
     x => {
         if (x == 1 || x == 145) return x == 1
@@ -162,92 +152,57 @@ const isKaprekar = rf(
     }
 )
 
-
 const toRomanNumeral = x => {
     if (x > 3999) return "Romans can't count this high";
     const numerals = "IVXLCDM".split("")
     return digits(x).slice(-4).reverse().map((n,index) => {
         if (n == 0) return ""
-        const offset = (n > 5) ? 2:1;
         let str = (n >= 5) ? numerals[index*2+1]:""
-        if (n%5 == 4) str = numerals[index*2] + numerals[index*2 + offset] //there is a subtraction ex IV IX
+        if (n%5 == 4) str = numerals[index*2] + numerals[index*2 + (n > 5) ? 2:1] //there is a subtraction ex IV IX
         else str += numerals[index*2].repeat(n%5)
         return str
     }).reverse().join("")
 }
 
-log(toRomanNumeral(6235))
-
-
-const pascal = rf(
-    (x,row = [1]) => {
-        const k = row.length - 1 
-        row.push(row[k] * (x - k) / (k+1))
-        if (k+1 == x)  return row
-        return ["CALL",x,row]
+const baseChange = rf (
+    (x,base,res = "") => {
+        if (x <= 0) return res
+        const Schroeppel2 = 0xAAAAAAAA;
+        const Schroeppel4 = 0xCCCCCCCC;
+        if (base == -4) return ((x + Schroeppel4 ) ^ Schroeppel4 ).toString(4);
+        if (base == -2) return ((x + Schroeppel2 ) ^ Schroeppel2 ).toString(2);
+        if (base<=1 || base>=65) return "Invalid Base";
+        const s = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz+/".split("");
+        res = s[x%base] + res;
+        x = Math.floor(x/base);
+        return ["CALL",x,base,res]
     }
 )
 
-const aksPascal = rf(
-    (x,row = [1]) => {
-        const k = row.length - 1 
-        row.push((row[k] * (x - k) / (k+1)) * -1)
-        if (k+1 == x)  return row
-        return ["CALL",x,row]
+const isFactorial = rf (
+    (x,divisor = 1) => {
+        if (x == 1) return divisor-1
+        if (!isInt(x/divisor)) return false
+        return ["CALL",x/divisor,divisor+1]
     }
 )
 
-const aksPrimealityTest1 = rf (
-    (x,coff = [],check = 0) => {
-        if (coff.length == 0) {
-            coff = aksPascal(x);
-            coff[0] -= 1;
-            coff[coff.length-1] += 1;
-        }
-        console.log(coff[check]/x)
-        if (coff.length == check) return true
-        if (!isInt(coff[check]/x)) return false
-        return ["CALL", x, coff, check+1]
+const isTriangle = rf (
+    (x,subtract = 0) => {
+        if (x == 0) return subtract-1
+        if (x-subtract < 0) return false
+        return ["CALL",x-subtract,subtract+1]
     }
 )
 
-
-//make this funcitonal later
-const isPower = x => {
-    for (let b = 2; b <= Math.log2(x); b++) {
-        if (isInt(x**(1/b))) return true
-    }
-    return false
+const hasAmicalble = x => {
+    return x == factorSum(factorSum(x)-x)-(factorSum(x)-x) ? (factorSum(x)-x):false
 }
 
-const GCD = rf (
-    (x,y) => {
-        if (y === 0) return x
-        return ["CALL",y,x%y]
-    }
-)
-
-const multOrder = (x,r) => {
-    //check that they are coprime
-    if (GCD(x,r) != 1) return false
-    let accm = 1
-    let k = 0;
-    do{
-        accm = (accm * x) % r
-        k++;
-    }while (accm%r != 1) 
-    return k;
-}
-
-const aksPrimealityTest2 = x => {
-    if (isPower(x)) return false
-
-}
 
 const isInSeq = (build,seed) => rf((x,seq = seed) => {
 	if (tail(seq) > x) return false
     if ((index = seq.indexOf(x)) > -1) return index
-    //log(seq,build(seq))
     seq.push(build(seq))
 	return ["CALL",x,seq]
 })
@@ -280,32 +235,20 @@ const inCatalan = isInSeq(catalan,[1])
 const inLookAndSay = isInSeq(lookAndSay,[1])
 const inLazyCaterers = isInSeq(lazyCaterers,[1])
 
+//add
+//euler totient function
+//find digit in pi
 
+const funcs = {
+    "even":isEven,
+    "isInt":isInt,
+    "prime":isPrime,
+    "powerful":isPowerful,
+    "ore":isOre,
+    "sphenic":isSphenic,
+    "kaprekar":isKaprekar,
+    "harshad":isHarshad,
+    "pronic":isPronic
+}
 
-// const funcs = {
-//     "even":isEven,
-//     "isInt":isInt,
-//     "prime":isPrime,
-//     "powerful":isPowerful,
-//     "ore":isOre,
-//     "sphenic":isSphenic,
-//     "kaprekar":isKaprekar,
-//     "harshad":isHarshad,
-//     "pronic":isPronic
-// }
-
-
-// module.exports = funcs
-
-// let handler = {
-//     get(target, propKey, receiver) {
-//         const origMethod = target[propKey];
-//         return function (...args) {
-//             let result = origMethod.apply(this, args);
-//             console.log(propKey + JSON.stringify(args)
-//                 + ' -> ' + JSON.stringify(result));
-//             return result;
-//         };
-//     }
-// };
-// f = new Proxy(global, handler);
+module.exports = funcs
