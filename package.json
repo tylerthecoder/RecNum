@@ -1,0 +1,26 @@
+{
+  "name": "recmath",
+  "version": "1.0.0",
+  "description": "A way to do cool math",
+  "main": "main.js",
+  "scripts": {
+    "test": "node test.js",
+    "run": "node functional.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tylerthecoder/Recreational_Math.git"
+  },
+  "keywords": [
+    "math"
+  ],
+  "author": "Tyler Tracy",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tylerthecoder/Recreational_Math/issues"
+  },
+  "homepage": "https://github.com/tylerthecoder/Recreational_Math#readme",
+  "devDependencies": {
+    "jasmine": "^3.1.0"
+  }
+}
