@@ -6,7 +6,27 @@ const rf = fn => (...args) => {
     return res
 }
 
-const log = (...what) => console.log(...what)
+// const rf2 = fn => (...args) => {
+//     let proxy = new Proxy(fn,{
+//         apply:(func, thisArg, args) => {
+//             return func(...args)
+//         }
+//     })
+//     fn(...args)
+// }
+
+// const factorial = rf2 ( 
+//     tyler = (x,accum) => {
+//         if (x == 0) return accum;
+//         log(fn)
+//         tyler(14,0)
+//     }
+// )
+
+// const log = (...what) => console.log(...what)
+
+// factorial(4)
+
 
 /* O(n) functions */
 const head = ([arr]) => arr
@@ -20,7 +40,7 @@ const boolToIndex = arr => arr.reduce((accum,val,index) => {
     if (val) { accum.push(index) }
     return accum
 },[])
-const isEven = x => x % 2 == 0
+let isEven = x => x % 2 == 0
 const isInt = x => x == Math.floor(x)
 const toInt = x => +x;
 const reverseNum = x => digits(x).reverse().join('')
@@ -30,7 +50,7 @@ const getDigits = (x,start,length = digits(x).length) => digits(x).splice(start,
 const digitSum = x => sumArray(stringToInt(digits(x)))
 
 //prime functions
-const isPrime = rf(
+let isPrime = rf(
     (x,divisor = 2) => {
         if (x == 1) return false
         if (x % divisor == 0)return  false
@@ -250,5 +270,17 @@ const funcs = {
     "harshad":isHarshad,
     "pronic":isPronic
 }
+
+let allData = {};
+const handler = {
+    apply:function (target,thisArg,args) {
+        console.log(target,thisArg,args)
+        return target(thisArg)
+    }
+}
+
+Number.prototype.isPrime = new Proxy(isPrime,handler)
+
+console.log((12).isPrime())
 
 module.exports = funcs
