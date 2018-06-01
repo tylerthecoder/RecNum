@@ -1,11 +1,11 @@
 {
-  "name": "recmath",
+  "name": "recnum",
   "version": "1.0.0",
   "description": "A way to do cool math",
   "main": "main.js",
   "scripts": {
     "test": "node test.js",
-    "run": "node functional.js"
+    "start": "node main.js"
   },
   "repository": {
     "type": "git",
