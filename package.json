@@ -12,7 +12,7 @@
     "url": "git+https://github.com/tylerthecoder/Recreational_Math.git"
   },
   "keywords": [
-    "math"
+    "math", "number theory", "recreational mathematics", "mathematics", "javascript"
   ],
   "author": "Tyler Tracy",
   "license": "ISC",
