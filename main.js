@@ -177,8 +177,8 @@ const toRomanNumeral = x => {
 }
 
 const isInSeq = (build,seed) => rf((x,seq = seed) => {
-	if (tail(seq) > x) return false
     if ((index = seq.indexOf(x)) > -1) return index
+	if (tail(seq) > x) return false
     //log(seq,build(seq))
     seq.push(build(seq))
 	return ["CALL",x,seq]
@@ -222,6 +222,7 @@ module.exports = {
     factorSum,
     getPowers,
     isAbudant,
+    getFactors,
     getPrimeFacts,
     isPerfect,
     isDeficent,
@@ -232,7 +233,6 @@ module.exports = {
     isSmith,
     isAutomorphic,
     isAchilles,
-    isInt,
     isMersenne,
     isFermat,
     toRomanNumeral,

@@ -53,6 +53,15 @@ describe("RecMAth", function() {
         expect(funcs.isPronic(240)).toBe(true);
         expect(funcs.isPronic(461)).toBe(false);
     });
+
+    it("fibanocci", function() {
+        expect(funcs.inFib(5)).toBe(5);
+        expect(funcs.inFib(1)).toBe(1);
+        expect(funcs.inFib(12)).toBe(false);
+        expect(funcs.inFib(144)).toBe(12);
+    });
+
+
 });
 
 

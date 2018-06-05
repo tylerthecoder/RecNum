@@ -1,6 +1,6 @@
 {
   "name": "recnum",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "A way to do cool math",
   "main": "main.js",
   "scripts": {
