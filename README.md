@@ -1,12 +1,10 @@
 # Recreational_Number_Theory
 A Javascript library for quick calculations of different properties of numbers.
 
-##Installation
+## Installation
 ```
 npm i recnum --save
 ```
-
-
 
 Here is an example use to see if a number is prime
 ```javascript
