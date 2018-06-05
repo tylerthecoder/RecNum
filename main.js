@@ -212,11 +212,12 @@ const inCatalan = isInSeq(catalan,[1])
 const inLookAndSay = isInSeq(lookAndSay,[1])
 const inLazyCaterers = isInSeq(lazyCaterers,[1])
 
-
 module.exports = {
     isEven,
     isPrime,
     isEmirp,
+    isSuperPrime,
+    isTwinPrime,
     isWilsonPrime,
     primesUpTo,
     factorSum,

@@ -1,6 +1,12 @@
 # Recreational_Number_Theory
 A Javascript library for quick calculations of different properties of numbers.
 
+##Installation
+```
+npm i recnum --save
+```
+
+
 
 Here is an example use to see if a number is prime
 ```javascript
@@ -20,6 +26,8 @@ List of all properties of numbers
 * Even (isEven)
 * Prime (isPrime)
 * Emirp (isEmirp)
+* Super Prime (isSuperPrime)
+* Twin Prime (isTwinPrime)
 * Wilson Prime (isWilsonPrime)
 * Abundant (isAbundant)
 * Perfect (isPerfect)
@@ -64,4 +72,3 @@ Other Usefull Things
 * Find a number's prime factors (getPrimeFacts)
 * Find a number's sum of factors (factorSum)
 * Convert a number to roman numerals (toRomanNumeral)
-
