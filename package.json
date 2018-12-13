@@ -2,17 +2,23 @@
   "name": "recnum",
   "version": "1.0.2",
   "description": "A way to do cool math",
-  "main": "main.js",
+  "main": "dist/main.js",
   "scripts": {
-    "test": "node test.js",
-    "start": "node main.js"
+    "start": "node dist/main.js",
+    "start:dev": "tsc -w",
+    "build": "tsc",
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/tylerthecoder/Recreational_Math.git"
   },
   "keywords": [
-    "math", "number theory", "recreational mathematics", "mathematics", "javascript"
+    "math",
+    "number theory",
+    "recreational mathematics",
+    "mathematics",
+    "javascript"
   ],
   "author": "Tyler Tracy",
   "license": "ISC",
@@ -21,6 +27,14 @@
   },
   "homepage": "https://github.com/tylerthecoder/Recreational_Math#readme",
   "devDependencies": {
-    "jasmine": "^3.1.0"
+    "jasmine": "^3.1.0",
+    "mocha": "^5.2.0",
+    "tslint": "^5.11.0",
+    "typescript": "^3.2.2"
+  },
+  "dependencies": {
+    "@types/lodash": "^4.14.119",
+    "chai": "^4.2.0",
+    "lodash": "^4.17.11"
   }
 }
