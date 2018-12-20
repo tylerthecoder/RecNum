@@ -14,17 +14,15 @@ yarn add recnum
 
 ## Usage
 
-### How to import
-# Javascript
+### Javascript
 ```javascript
 const recnum = require("recnum");
 ```
-# Typescript
+### Typescript
 ```typescript
 import * as recnum from 'recnum';
 ```
 
-## examples
 Check if a number is prime
 ```typescript
 const recnum = require("recnum")
