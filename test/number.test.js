@@ -11,6 +11,11 @@ describe("Numbers", () => {
     it("digits", () => {
       expect(funcs.digits(123), "123").to.deep.equal([1,2,3]);
       expect(funcs.digits(12345, "12345")).to.deep.equal([1,2,3,4,5]);
+    });
+
+    it("slices digits", () => {
+      expect(funcs.sliceDigits(12345, 0, 2), "12345 0 2").to.equal(12);
+      expect(funcs.sliceDigits(12345, 3), "12345 3").to.equal(45);
     })
 
     it("reverse digits", () => {
