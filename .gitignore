@@ -1,3 +1,3 @@
-/node_modules
-/lib
-/spec
+node_modules/*
+dist/
+.vscode/
