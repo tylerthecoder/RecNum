@@ -2,11 +2,24 @@ const expect = require('chai').expect;
 const funcs = require("../dist/digits.js")
 
 describe("Digits", () => {
+
   it("powerful", function() {
     expect(funcs.isPowerful(1)).to.equal(true);
     expect(funcs.isPowerful(16)).to.equal(true);
     expect(funcs.isPowerful(972)).to.equal(true);
     expect(funcs.isPowerful(973)).to.equal(false);
+  });
+
+  it("Pandigital", function() {
+    expect(funcs.isPandigital(1)).to.equal(false);
+    expect(funcs.isPandigital(9487360125)).to.equal(true);
+  });
+
+  it("keith", function() {
+    expect(funcs.isKeith(14), "14").to.equal(true);
+    expect(funcs.isKeith(93993), "93993").to.equal(true);
+    expect(funcs.isKeith(3), "3").to.equal(true);
+    expect(funcs.isKeith(1111), "1111").to.equal(false);
   });
 
   it("happy", function() {

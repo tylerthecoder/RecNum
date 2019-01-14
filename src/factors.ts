@@ -10,14 +10,6 @@ export const factors: (x: number, facts?: number[], count?: number) => number[] 
   },
 );
 
-export const factorsIterative = (n: number) => {
-  const facts = [];
-  for (let i = 0; i <= Math.sqrt(n); i++) {
-    if (isDivisible(n, i)) { facts.push(i, n / i); }
-  }
-  return facts;
-};
-
 export const factorSum = (x: number) => _.sum(factors(x));
 
 export const primeFactors: (x: number, facts?: number[], check?: number) => number[] = rf(

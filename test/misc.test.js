@@ -7,5 +7,7 @@ describe("Misc", () => {
         expect(funcs.toRomanNumeral(10)).to.equal("X");
         expect(funcs.toRomanNumeral(12)).to.equal("XII");
         expect(funcs.toRomanNumeral(3)).to.equal("III");
+        expect(funcs.toRomanNumeral(37)).to.equal("XXXVII");
+        expect(funcs.toRomanNumeral(10000)).to.equal("Romans can't count this high");
     });
 });

@@ -1,17 +1,17 @@
 import * as _ from "lodash";
 import { factors, powers, primeFactors } from "./factors";
 import { digits, digitSum, isDivisible, isInt, numOfDigits, sliceDigits } from "./number";
-import { isUniq, rest, rf } from "./utils";
+import { isUniq, rf } from "./utils";
 
 export const isPandigital = (x: number) => digits(x).sort().toString() === "0,1,2,3,4,5,6,7,8,9";
 
 export const isKeith: (x: number, digs?: number[]) => boolean = rf(
   (call, x, digs = digits(x)) => {
-    const sum = digitSum(x);
+    const sum = _.sum(digs);
     if (sum === x) { return true; }
     if (sum > x) { return false; }
     digs.push(sum);
-    return call(x, rest(digs));
+    return call(x, _.tail(digs));
   },
 );
 

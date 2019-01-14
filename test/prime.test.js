@@ -18,6 +18,13 @@ describe("Primes", () => {
       expect(funcs.isSuperPrime(991, "991")).to.equal(true);
   })
 
+  it("emirp", () => {
+    expect(funcs.isEmirp(5), "5").to.equal(true);
+    expect(funcs.isEmirp(31), "31").to.equal(true);
+    expect(funcs.isEmirp(32), "32").to.equal(false);
+    expect(funcs.isEmirp(13), "13").to.equal(true);
+  })
+
   it("twin prime", () => {
     expect(funcs.isTwinPrime(3), "3").to.equal(5);
     expect(funcs.isTwinPrime(19), "19").to.equal(17);

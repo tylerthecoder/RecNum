@@ -7,7 +7,8 @@
     "start": "node dist/main.js",
     "start:dev": "tsc -w",
     "build": "tsc",
-    "test": "mocha"
+    "test": "mocha",
+    "cover": "istanbul cover node_modules/mocha/bin/_mocha test/*.js - - -R spec && google-chrome coverage/lcov-report/index.html"
   },
   "repository": {
     "type": "git",
@@ -27,14 +28,15 @@
   },
   "homepage": "https://github.com/tylerthecoder/Recreational_Math#readme",
   "devDependencies": {
+    "@types/lodash": "^4.14.119",
+    "chai": "^4.2.0",
+    "istanbul": "^0.4.5",
     "jasmine": "^3.1.0",
     "mocha": "^5.2.0",
     "tslint": "^5.11.0",
     "typescript": "^3.2.2"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.119",
-    "chai": "^4.2.0",
     "lodash": "^4.17.11"
   }
 }

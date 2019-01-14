@@ -1,7 +1,6 @@
 import * as _ from "lodash";
 
-export const tail = (arr: any[], length = 1) => arr[arr.length - length];
-export const rest = ([f, ...rst]: any[]) => rst;
+export const end = (arr: any[], length = 1) => arr[arr.length - length];
 export const isUniq = (arr: number[]) => _.uniq(arr).length === arr.length;
 
 export function rf<A extends any[], R>(fn: (call: (...args: A) => A, ...args: A) => R | A): (...args: A) => R {
