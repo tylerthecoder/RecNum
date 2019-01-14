@@ -1,6 +1,6 @@
 {
   "name": "recnum",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "A way to do cool math",
   "main": "dist/main.js",
   "scripts": {
@@ -30,11 +30,11 @@
     "jasmine": "^3.1.0",
     "mocha": "^5.2.0",
     "tslint": "^5.11.0",
-    "typescript": "^3.2.2"
+    "typescript": "^3.2.2",
+    "@types/lodash": "^4.14.119",
+    "chai": "^4.2.0"
   },
   "dependencies": {
-    "@types/lodash": "^4.14.119",
-    "chai": "^4.2.0",
     "lodash": "^4.17.11"
   }
 }

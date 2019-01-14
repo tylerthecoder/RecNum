@@ -6,3 +6,9 @@ install:
 script:
  - yarn build
  - yarn test
+ deploy:
+  provider: npm
+  email: "tylertracy1999@gmail.com"
+  api_key: $NPM_AUTH
+  on:
+    branch: master
