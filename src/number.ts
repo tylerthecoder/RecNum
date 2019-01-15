@@ -6,14 +6,14 @@ export const getDigit = (n: number, index: number) => {
 
 export const digits = (n: number) => {
   const result: number[] = [];
-  for (let i = numOfDigits(n); i >= 0; i--) {
+  for (let i = numOfDigits(n) - 1; i >= 0; i--) {
     result.push(getDigit(n, i));
   }
   return result;
 };
 
 export const sliceDigits = (n: number, start: number, end?: number | undefined) => {
-  const len = numOfDigits(n);
+  const len = numOfDigits(n) - 1;
   if (end === undefined) {
     end = len + 1;
   }
@@ -25,7 +25,7 @@ export const sliceDigits = (n: number, start: number, end?: number | undefined) 
 };
 
 export const numOfDigits = (n: number) => {
- return Math.floor(Math.log10(n));
+ return Math.floor(Math.log10(n)) + 1;
 };
 
 export const reverseDigits = (n: number) => {
