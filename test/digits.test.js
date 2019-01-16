@@ -50,4 +50,73 @@ describe("Digits", () => {
       expect(funcs.isPronic(240)).to.equal(true);
       expect(funcs.isPronic(461)).to.equal(false);
   });
+
+  it("pandigital", function() {
+    expect(funcs.isPandigital(0)).to.equal(false);
+    expect(funcs.isPandigital(2)).to.equal(false);
+    expect(funcs.isPandigital(1234567890)).to.equal(true);
+    expect(funcs.isPandigital(4562891703)).to.equal(true);
+    expect(funcs.isPandigital(12345678990)).to.equal(false);
+  });
+
+  it("keith", function() {
+    expect(funcs.isKeith(5), "5").to.equal(false);
+    expect(funcs.isKeith(14), "14").to.equal(true);
+    expect(funcs.isKeith(62662), "62662").to.equal(true);
+    expect(funcs.isKeith(62663), "62663").to.equal(false);
+  });
+
+  it("PolyDivisible", function() {
+    expect(funcs.isPolyDivisible(2)).to.equal(true);
+    expect(funcs.isPolyDivisible(5)).to.equal(true);
+    expect(funcs.isPolyDivisible(38)).to.equal(true);
+    expect(funcs.isPolyDivisible(39)).to.equal(false);
+    expect(funcs.isPolyDivisible(10200056)).to.equal(true);
+  });
+
+  it("narcissistic", function() {
+    expect(funcs.isNarcissistic(0), "0").to.equal(true);
+    expect(funcs.isNarcissistic(1), "1").to.equal(true);
+    expect(funcs.isNarcissistic(6), "6").to.equal(true);
+    expect(funcs.isNarcissistic(38), "38").to.equal(false);
+    expect(funcs.isNarcissistic(153), "153").to.equal(true);
+    expect(funcs.isNarcissistic(9474), "9474").to.equal(true);
+  });
+
+  it("smith", function() {
+    expect(funcs.isSmith(22), "22").to.equal(true);
+    expect(funcs.isSmith(38), "38").to.equal(false);
+    expect(funcs.isSmith(153), "153").to.equal(false);
+    expect(funcs.isSmith(588), "588").to.equal(true);
+    expect(funcs.isSmith(1089), "1089").to.equal(false);
+  });
+
+  it("achilles", function() {
+    expect(funcs.isAchilles(4), "4").to.equal(false);
+    expect(funcs.isAchilles(72), "72").to.equal(true);
+    expect(funcs.isAchilles(432), "432").to.equal(true);
+    expect(funcs.isAchilles(433), "433").to.equal(false);
+  });
+
+  it("automorphic", function() {
+    expect(funcs.isAutomorphic(5), "5").to.equal(true);
+    expect(funcs.isAutomorphic(6), "6").to.equal(true);
+    expect(funcs.isAutomorphic(9376), "9376").to.equal(true);
+    expect(funcs.isAutomorphic(1000), "1000").to.equal(false);
+  });
+
+  it("mersenne", function() {
+    expect(funcs.isMersenne(1), "1").to.equal(true);
+    expect(funcs.isMersenne(4), "4").to.equal(false);
+    expect(funcs.isMersenne(7), "7").to.equal(true);
+    expect(funcs.isMersenne(255), "1000").to.equal(true);
+  });
+
+  it("fermat", function() {
+    expect(funcs.isFermat(1), "1").to.equal(false);
+    expect(funcs.isFermat(3), "3").to.equal(true);
+    expect(funcs.isFermat(257), "257").to.equal(true);
+    expect(funcs.isFermat(513), "513").to.equal(false);
+  });
+
 });

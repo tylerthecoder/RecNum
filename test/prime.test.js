@@ -24,5 +24,19 @@ describe("Primes", () => {
     expect(funcs.isTwinPrime(12), "12").to.equal(false);
     expect(funcs.isTwinPrime(23), "23").to.equal(false);
     expect(funcs.isTwinPrime(137, "137")).to.equal(139);
-})
+  })
+
+  it("Emirp", () => {
+    expect(funcs.isEmirp(13), "13").to.equal(true);
+    expect(funcs.isEmirp(19), "19").to.equal(false);
+    expect(funcs.isEmirp(149), "149").to.equal(true);
+    expect(funcs.isEmirp(150), "150").to.equal(false);
+  });
+
+  it("Wilson", () => {
+    expect(funcs.isWilsonPrime(3), "3").to.equal(false);
+    expect(funcs.isWilsonPrime(5), "5").to.equal(true);
+    expect(funcs.isWilsonPrime(13), "13").to.equal(true);
+    expect(funcs.isWilsonPrime(563), "563").to.equal(true);
+  });
 });
