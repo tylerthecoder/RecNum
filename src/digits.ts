@@ -37,7 +37,7 @@ export const isSmith = (x: number) => digitSum(x) === _.sum(_.map(primeFactors(x
 export const isPowerful = (x: number) => primeFactors(x).every((p) => isDivisible(x , p ** 2));
 export const isAchilles = (x: number) => isPowerful(x) && powers(x).length < 1;
 export const isSphenic = (x: number) => primeFactors(x).length === 3 && isUniq(primeFactors(x));
-export const isAutomorphic = (x: number) => digits(x * x).slice(digits(x).length).toString() === x.toString();
+export const isAutomorphic = (x: number) => sliceDigits(x * x, numOfDigits(x)) === x;
 export const isHarshad = (x: number) => isDivisible(x, digitSum(x));
 export const isPronic = (x: number) => Math.floor(Math.sqrt(x)) * Math.ceil(Math.sqrt(x)) === x;
 export const isMersenne = (x: number) => isInt(Math.log2(x + 1));

@@ -5,11 +5,11 @@
   "main": "dist/main.js",
   "scripts": {
     "start": "node dist/main.js",
-    "start:dev": "tsc -w",
+    "start:dev": "yarn install && tsc -w",
     "build": "tsc",
     "test": "mocha",
-    "cover": "istanbul cover dist/main.js",
-    "cover:test": "nyc --check-coverage --lines 100 npm test"
+    "cover": "nyc --check-coverage --lines 100 npm test",
+    "cover:report": "nyc report --reporter=lcov"
   },
   "repository": {
     "type": "git",
@@ -31,7 +31,6 @@
   "devDependencies": {
     "@types/lodash": "^4.14.119",
     "chai": "^4.2.0",
-    "istanbul": "^0.4.5",
     "jasmine": "^3.1.0",
     "mocha": "^5.2.0",
     "nyc": "^13.1.0",

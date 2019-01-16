@@ -18,7 +18,7 @@ const fib = (seed: number[]) => tail(seed, 1) + tail(seed, 2);
 const padovan = (seed: number[]) => tail(seed, 2) + tail(seed, 3);
 const jacobsthal = (seed: number[]) => tail(seed, 1) + 2 * tail(seed, 2);
 const leonardo = (seed: number[]) => tail(seed, 1) + tail(seed, 2) + 1;
-const catalan = (seed: number[]) => ((4 * seed.length + 2) / (seed.length + 2)) * tail(seed, 1);
+const catalan = (seed: number[]) => ((4 * (seed.length - 1) + 2) / (seed.length + 1)) * tail(seed, 1);
 const lazyCaterers = (seed: number[]) => {
   const i = Math.sqrt(2 * tail(seed) - 7 / 4) - 0.5;
   return ((i + 1) ** 2 + (i + 1) + 2) / 2;
@@ -41,6 +41,6 @@ export const inLucas = isInSeq(fib, [2, 1]);
 export const inPadovan = isInSeq(padovan, [1, 1, 1]);
 export const inJacobsthal = isInSeq(jacobsthal, [0, 1]);
 export const inLeonardo = isInSeq(leonardo, [1, 1]);
-export const inCatalan = isInSeq(catalan, [1]);
+export const inCatalan = isInSeq(catalan, [1, 1]);
 export const inLookAndSay = isInSeq(lookAndSay, [1]);
 export const inLazyCaterers = isInSeq(lazyCaterers, [1]);

@@ -84,7 +84,6 @@ describe("Digits", () => {
   });
 
   it("smith", function() {
-    expect(funcs.isSmith(0), "4").to.equal(true);
     expect(funcs.isSmith(22), "22").to.equal(true);
     expect(funcs.isSmith(38), "38").to.equal(false);
     expect(funcs.isSmith(153), "153").to.equal(false);
@@ -93,9 +92,31 @@ describe("Digits", () => {
   });
 
   it("achilles", function() {
-    expect(funcs.isAchilles(1), "1").to.equal(false);
+    expect(funcs.isAchilles(4), "4").to.equal(false);
     expect(funcs.isAchilles(72), "72").to.equal(true);
     expect(funcs.isAchilles(432), "432").to.equal(true);
     expect(funcs.isAchilles(433), "433").to.equal(false);
   });
+
+  it("automorphic", function() {
+    expect(funcs.isAutomorphic(5), "5").to.equal(true);
+    expect(funcs.isAutomorphic(6), "6").to.equal(true);
+    expect(funcs.isAutomorphic(9376), "9376").to.equal(true);
+    expect(funcs.isAutomorphic(1000), "1000").to.equal(false);
+  });
+
+  it("mersenne", function() {
+    expect(funcs.isMersenne(1), "1").to.equal(true);
+    expect(funcs.isMersenne(4), "4").to.equal(false);
+    expect(funcs.isMersenne(7), "7").to.equal(true);
+    expect(funcs.isMersenne(255), "1000").to.equal(true);
+  });
+
+  it("fermat", function() {
+    expect(funcs.isFermat(1), "1").to.equal(false);
+    expect(funcs.isFermat(3), "3").to.equal(true);
+    expect(funcs.isFermat(257), "257").to.equal(true);
+    expect(funcs.isFermat(513), "513").to.equal(false);
+  });
+
 });

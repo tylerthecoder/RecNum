@@ -12,14 +12,6 @@ export const isPrime: (x: number, next?: number) => boolean = rf(
   },
 );
 
-export const isPrimeIterative = (n: number) => {
-  if (n === 1) { return false; }
-  for (let i = 2; i <= Math.sqrt(n); i++) {
-    if (n % i === 0) { return false; }
-  }
-  return true;
-};
-
 export const isEmirp = (x: number) => isPrime(x) && isPrime(reverseNum(x));
 export const isWilsonPrime = (x: number) => x === 5 || x === 13 || x === 563;
 
